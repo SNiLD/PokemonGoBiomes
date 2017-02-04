@@ -1,0 +1,270 @@
+[out:json][timeout:25][bbox:{{bbox}}];
+(
+  
+// Spawn areas
+(
+  // Rare
+  (
+    (node["historic"];); // Ponyta
+    (node["artwork_type"="sculpture"];); // Magmar
+    (node["artwork_type"="painting"];); // Jigglypuff
+    (
+      node["amenity"="place_of_worship"];
+      way["amenity"="graveyard"];
+      // way["bridge"];
+    )->.snorlax;
+    (way["amenity"="hospital"];); // Chansey?
+    (node["natural"="peak"]; node["tourism"="viewpoint"];); // Dragonite?
+    // node["tourism"="artwork"];
+    // (node["highway"="crossing"];); // Jynx
+  );
+  
+  // Flying
+  (
+    way["incline"];
+  )->.flying;
+  
+  // Steel
+  (
+    way["building:material"="aluminium"];
+    way["building:material"="steel"];
+    way["building:material"="metal"];
+    way["building:material"="metal_plates"];
+    way["material"="steel"];
+    way["material"="metal"];
+    way["landuse"="commercial"];
+  )->.steel;
+  
+  // Fighting
+  (
+    way["amenity"="school"];
+    way["leisure"="track"];
+    // Very often Mankey
+    way["leisure"="dog_park"];
+  )->.fighting;
+  
+  // Ground
+  (
+    way["landuse"="allotments"];
+    way["surface"="unpaved"]["area"="yes"];
+    way["highway"="pedestrian"]["area"="yes"];
+  )->.ground;
+  
+  // Rock
+  (
+    way["natural"="bare_rock"];
+    way["natural"="cliff"];
+  )->.rock;
+
+  // Fairy
+  (
+    way["leisure"="pitch"];
+    way["amenity"="kindergarten"];
+  )->.fairy;
+  
+  // Fire
+  (
+    way["amenity"="fire_station"];
+    way["amenity"="crematorium"];
+  )->.fire;
+  
+  // Psychic
+  (
+    way["leisure"="playground"];
+  )->.psychic;
+  
+  // Dragon
+  // Dratini
+  (
+    way["leisure"="golf_course"];
+    way["natural"="beach"];
+    way["natural"="wetland"]; // Dratini
+  )->.dragon;
+  
+  // Ghost
+  (
+    way["amenity"="parking"];
+    // way["lit"="no"];
+  )->.ghost;
+
+  // Grass
+  // Bellsprout, Bulbasaur
+  (
+    way["landuse"="grass"];
+    way["leisure"="nature_reserve"];
+  )->.grass;
+
+  // Water
+  // Magikarp, Staryu, Squirtle
+  (
+    way["landuse"="reservoir"];
+    way["natural"="water"];
+    way["waterway"];
+  )->.water;
+  
+  // Electric
+  (
+    way["landuse"="industrial"];
+    way["building"="industrial"];
+  )->.electric;
+  
+  // Poison
+  // Ekans
+  (
+    way["natural"="scrub"];
+  )->.poison;
+  
+  // Bug
+  // Weedle
+  (
+    way["landuse"="forest"];
+  )->.bug;
+  
+  // Normal
+  // Eevee, Meowth, Doduo
+  (
+    way["leisure"="park"];
+  )->.normal;
+  
+  // Grass, Bug, Poison, Flying
+  (
+    way["natural"="wood"];
+  );
+  
+  // Unkown type, maybe bug?
+  (
+    way["landuse"="farm"];
+  );
+  
+)->.spawn_areas;
+
+// Pokemon usually spawn on these paths.
+/*
+(
+  way["highway"="footway"];
+  way["highway"="path"];
+  way["foot"="yes"];
+)->.paths;
+*/
+
+// Non-spawn areas
+// (way({{bbox}}); - way.spawn_areas;)->.non_spawn_areas;
+// (way.spawn_areas; - way["access"="private"]);
+
+);
+
+// Remove the "center" text below to hide the labels.
+out body center;
+
+>;
+
+out skel;
+
+
+{{style:
+
+area
+{
+  opacity: 0.95;
+  fill-opacity: 0.7;
+}
+
+/* Areas */
+/* Unknown */
+way { color: black; fill-color: black; }
+way[natural=wood] { set .multiple }
+way[leisure=park] { set .normal; }
+way[landuse=forest] { set .bug; }
+way[natural=scrub] { set .poison; }
+way[landuse=industrial], way[building=industrial] { set .electric; }
+way[landuse=reservoir], way[waterway], way[natural=water] { set .water; }
+way[landuse=grass], way[leisure=nature_reserve] { set .grass; }
+way[amenity=parking] { set .ghost; }
+way[leisure=golf_course], way[natural=beach], way[natural=wetland] { set .dragon; }
+way[leisure=playground] { set .psychic; }
+way[landuse=allotments], way[highway=pedestrian] { set .ground; }
+way[natural=bare_rock], way[natural=cliff] { set .rock; }
+way[amenity=fire_station], way[amenity=crematorium] { set .fire; }
+way[amenity=school], way[leisure=track], way[leisure=dog_park] { set .fighting; }
+way[leisure=pitch], way[amenity=kindergarten] { set .fairy; }
+way[landuse=commercial], way[building:material=aluminium], way[building:material=steel], way[building:material=metal], way[building:material=metal_plates], way[material=steel], way[material=metal] { set .steel; }
+way[incline] { set .flying; }
+
+/* Paths */
+way[highway=footway], way[highway=path], way[foot=yes] { set .paths; }
+
+/* Rare */
+node[historic] { set .ponyta; }
+node[artwork_type=sculpture] { set .magmar; }
+node[artwork_type=painting] { set .jigglypuff; }
+node[amenity=place_of_worship], way[amenity=graveyard] { set .snorlax; }
+way[amenity=hospital] { set .chansey; }
+node[natural=peak], node[tourism=viewpoint] { set .dragonite; }
+node[highway=crossing] { set .jynx; }
+
+/* Misc */
+node|z18- { set .zoom; }
+
+/* Paths */
+way.paths { color: #FF0000; fill-color: #FF0000; }
+
+/* Multiple */
+way.multiple { color: #FFFFFF; fill-color: #FFFFFF; }
+/* Normal */
+way.normal { color: #B2966E; fill-color: #B2966E; }
+way.normal.zoom { icon-image: url('https://lh3.googleusercontent.com/-AuweIssPt78/Vzas90XB9dI/AAAAAAAAGmw/7sVGHyfL1SgjpLuobPWObQAHrjOrri0QQCCo/s80/Normal.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Bug */
+way.bug { color: #97AB3C; fill-color: #97AB3C; }
+way.bug.zoom { icon-image: url('https://lh3.googleusercontent.com/-76Bwp82ceRY/Vzas9JKM4AI/AAAAAAAAGmI/sjtRLW7p0UEQoT8lF59M_pup-Yohf1x5gCCo/s80/Bug.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Poison */
+way.poison { color: #B365A1; fill-color: #B365A1; }
+way.poison.zoom { icon-image: url('https://lh3.googleusercontent.com/-KIStDNhynLQ/VzaGvQxemGI/AAAAAAAAGl4/NZA8hphTD_Q6FHmCGs9XYJhCrWq9En-8wCCo/s80/button%2B%25285%2529.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Electric */
+way.electric { color: #FFC910; fill-color: #FFC910;  }
+way.electric.zoom { icon-image: url('https://lh3.googleusercontent.com/-p0KDtGpmIdU/Vzas9YCCRgI/AAAAAAAAGmQ/CsqpAGmSoR02IGit1RUy2z0xlasH_dAUgCCo/s80/Electric.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Water */
+way.water { color: #4EC9D9; fill-color: #4EC9D9; }
+way.water.zoom { icon-image: url('https://lh3.googleusercontent.com/-9bBYi1WiYko/Vzas-KX9mFI/AAAAAAAAGnA/n1IB0JTAqxUACu4w9Yts48qdal6sn0xEgCCo/s80/Water.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Grass */
+way.grass { color: #79C85F; fill-color: #79C85F; }
+way.grass.zoom { icon-image: url('https://lh3.googleusercontent.com/-IGKWqJcoyYs/VzaFv1HotqI/AAAAAAAAGlw/hRKh9jVhqP0ePnkSJ4IlcYM-wpRYr6dlgCCo/s80/button%2B%25284%2529.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Ghost */
+way.ghost { color: #836E95; fill-color: #836E95; }
+node.zoom.ghost { icon-image: url('https://lh3.googleusercontent.com/-M0Yc5NRoG3g/Vzas9jG0zeI/AAAAAAAAGmk/ZizkVzJnXPohb3rdd3FRYHYMQhFvYX37wCCo/s80/Ghost.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Dragon */
+way.dragon { color: #5A64AB; fill-color: #5A64AB; }
+way.dragon.zoom { icon-image: url('https://lh3.googleusercontent.com/-y3PlD3Lz844/Vzas9Ng8f6I/AAAAAAAAGmE/1JDv4ojJUfwFb6tYzb4tEzE9xF1FPpcDQCCo/s80/Dragon.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Psychic */
+way.psychic { color: #FF648C; fill-color: #FF648C; }
+way.psychic.zoom { icon-image: url('https://lh3.googleusercontent.com/-V2x5yg3eob4/Vzas9xbGh-I/AAAAAAAAGm4/miVyL-yYcpk7biRwS_fvKQif258xy1tLwCCo/s80/Psychic.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Ground */
+way.ground { color: #E8B363; fill-color: #E8B363; }
+way.ground.zoom { icon-image: url('https://lh3.googleusercontent.com/-9OWJqWFzG9Q/Vzas9jQUR1I/AAAAAAAAGmo/1ERbepylrDMergMrT8Q_Ja9H3-Well_pACCo/s80/Ground.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Rock */
+way.rock { color: #AAA063; fill-color: #AAA063; }
+way.rock.zoom { icon-image: url('https://lh3.googleusercontent.com/-G4wUQ9Y06E0/Vzas9-lbQWI/AAAAAAAAGm0/HqAVOv6uTiEgZ-N_9JScefVk1vGIhcysgCCo/s80/Rock.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Fire */
+way.fire { color: #FC7851; fill-color: #FC7851; }
+way.fire.zoom { icon-image: url('https://lh3.googleusercontent.com/-fRdJXKxr17E/Vzas9S7s0QI/AAAAAAAAGmc/fkrNIs6p8aUxDRuEBAn4Z2O5ldYISIefQCCo/s80/Fire.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Fighting */
+way.fighting { color: #FF666A; fill-color: #FF666A; }
+way.fighting.zoom { icon-image: url('https://lh3.googleusercontent.com/-ulaFl0JGYmI/Vzas9UyLMAI/AAAAAAAAGmY/J3tauxq6wIQcX7qFKIrZ16BOezParurjQCCo/s80/Fighting.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Fairy */
+way.fairy { color: #FD79AA; fill-color: #FD79AA; }
+way.fairy.zoom { icon-image: url('https://lh3.googleusercontent.com/-uCYrxBXx7Is/Vzas9WKVIwI/AAAAAAAAGmU/FtC7wgugxs0qdbIiSwVOZB8HgmAU9NFQwCCo/s80/Fairy.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+/* Steel */
+way.steel { color: #8DB3BE; fill-color: #8DB3BE; }
+way.steel.zoom { icon-image: url('https://lh3.googleusercontent.com/-eDZMaQcs1iI/Vzas90WvqAI/AAAAAAAAGm8/cpC202iERFgPKTrANpnoDhD9vVN0tPzfACCo/s80/Steel.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+way.flying { color: #838BCA; fill-color: #838BCA; }
+way.flying.zoom { icon-image: url('https://lh3.googleusercontent.com/-Kp6sKHq86pE/Vzas9WRYa9I/AAAAAAAAGmg/3xbX_YkkbjsEem8X41fufxcr-uJJnwpMwCCo/s80/Flying.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+
+/* Rare */
+node.ponyta { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/77.png'); }
+node.magmar { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/126.png'); }
+node.snorlax { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/143.png'); }
+node.jigglypuff { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/39.png'); }
+node.chansey { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/113.png'); }
+node.dragonite { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/149.png'); }
+node.jynx { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/124.png'); }
+
+}}
