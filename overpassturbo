@@ -15,7 +15,9 @@
     )->.snorlax;
     (way["amenity"="hospital"];); // Chansey?
     (node["natural"="peak"]; node["tourism"="viewpoint"];); // Dragonite?
+    (way["man_made"="pier"]; way["amenity"="fountain"];); // Lapras?
     // node["tourism"="artwork"];
+    // way["tourism"="theme_park"];
     // (node["highway"="crossing"];); // Jynx
   );
   
@@ -201,6 +203,7 @@ node[amenity=place_of_worship], way[amenity=graveyard] { set .snorlax; }
 way[amenity=hospital] { set .chansey; }
 node[natural=peak], node[tourism=viewpoint] { set .dragonite; }
 node[highway=crossing] { set .jynx; }
+way[man_made=pier], way[amenity=fountain] { set .lapras; }
 
 /* Misc */
 node|z18- { set .zoom; }
@@ -223,8 +226,8 @@ way.poison.zoom { icon-image: url('https://lh3.googleusercontent.com/-KIStDNhynL
 way.electric { color: #FFC910; fill-color: #FFC910;  }
 way.electric.zoom { icon-image: url('https://lh3.googleusercontent.com/-p0KDtGpmIdU/Vzas9YCCRgI/AAAAAAAAGmQ/CsqpAGmSoR02IGit1RUy2z0xlasH_dAUgCCo/s80/Electric.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Water */
-way.water { color: #4EC9D9; fill-color: #4EC9D9; }
-way.water.zoom { icon-image: url('https://lh3.googleusercontent.com/-9bBYi1WiYko/Vzas-KX9mFI/AAAAAAAAGnA/n1IB0JTAqxUACu4w9Yts48qdal6sn0xEgCCo/s80/Water.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+way.water, way.lapras { color: #4EC9D9; fill-color: #4EC9D9; }
+way.water.zoom, way.lapras.zoom { icon-image: url('https://lh3.googleusercontent.com/-9bBYi1WiYko/Vzas-KX9mFI/AAAAAAAAGnA/n1IB0JTAqxUACu4w9Yts48qdal6sn0xEgCCo/s80/Water.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Grass */
 way.grass { color: #79C85F; fill-color: #79C85F; }
 way.grass.zoom { icon-image: url('https://lh3.googleusercontent.com/-IGKWqJcoyYs/VzaFv1HotqI/AAAAAAAAGlw/hRKh9jVhqP0ePnkSJ4IlcYM-wpRYr6dlgCCo/s80/button%2B%25284%2529.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
@@ -266,5 +269,6 @@ node.jigglypuff { icon-width: 40; icon-height: 40; icon-image: url('https://silp
 node.chansey { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/113.png'); }
 node.dragonite { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/149.png'); }
 node.jynx { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/124.png'); }
+node.lapras { icon-width: 40; icon-height: 40; icon-image: url('https://silphroad-s3-xika4hn.netdna-ssl.com/img/pokemon/icons/96x96/131.png'); }
 
 }}
