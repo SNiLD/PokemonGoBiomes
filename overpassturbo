@@ -15,7 +15,7 @@
     )->.snorlax;
     (way["amenity"="hospital"];); // Chansey?
     (node["natural"="peak"]; node["tourism"="viewpoint"];); // Dragonite?
-    (way["man_made"="pier"]; way["amenity"="fountain"];); // Lapras?
+    (way["man_made"="pier"]; way["amenity"="fountain"]; way["man_made"="lighthouse"];); // Lapras?
     // node["tourism"="artwork"];
     // way["tourism"="theme_park"];
     // (node["highway"="crossing"];); // Jynx
@@ -203,7 +203,7 @@ node[amenity=place_of_worship], way[amenity=graveyard] { set .snorlax; }
 way[amenity=hospital] { set .chansey; }
 node[natural=peak], node[tourism=viewpoint] { set .dragonite; }
 node[highway=crossing] { set .jynx; }
-way[man_made=pier], way[amenity=fountain] { set .lapras; }
+way[man_made=pier], way[amenity=fountain], way[man_made=lighthouse] { set .lapras; }
 
 /* Misc */
 node|z18- { set .zoom; }
