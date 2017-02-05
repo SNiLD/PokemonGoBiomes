@@ -1,146 +1,159 @@
 [out:json][timeout:25][bbox:{{bbox}}];
+
+// Rare
 (
-  
-// Spawn areas
+  (node["historic"];); // Ponyta
+  (node["artwork_type"="sculpture"];); // Magmar
+  (node["artwork_type"="painting"];); // Jigglypuff
+  (
+    way["amenity"="graveyard"];
+    // way["bridge"];
+  )->.snorlax;
+  (way["amenity"="hospital"];); // Chansey?
+  (node["natural"="peak"]; node["tourism"="viewpoint"];); // Dragonite? / Aerodactyl?
+  (way["man_made"="pier"]; way["amenity"="fountain"]; way["man_made"="lighthouse"];); // Lapras? Possibly also water inside golf fields?
+  // node["amenity"="place_of_worship"]; // Maybe multiple, people have reported Lapras, Snorlax
+  // node["tourism"="artwork"];
+  // way["tourism"="theme_park"];
+  // (node["highway"="crossing"];); // Jynx
+)->.rare;
+
+// Flying
 (
-  // Rare
-  (
-    (node["historic"];); // Ponyta
-    (node["artwork_type"="sculpture"];); // Magmar
-    (node["artwork_type"="painting"];); // Jigglypuff
-    (
-      way["amenity"="graveyard"];
-      // way["bridge"];
-    )->.snorlax;
-    (way["amenity"="hospital"];); // Chansey?
-    (node["natural"="peak"]; node["tourism"="viewpoint"];); // Dragonite? / Aerodactyl?
-    (way["man_made"="pier"]; way["amenity"="fountain"]; way["man_made"="lighthouse"];); // Lapras? Possibly also water inside golf fields?
-    // node["amenity"="place_of_worship"]; // Maybe multiple, people have reported Lapras, Snorlax
-    // node["tourism"="artwork"];
-    // way["tourism"="theme_park"];
-    // (node["highway"="crossing"];); // Jynx
-  )->.rare;
+  way["incline"];
+)->.flying;
   
-  // Flying
-  (
-    way["incline"];
-  )->.flying;
+// Steel
+(
+  way["building:material"="aluminium"];
+  way["building:material"="steel"];
+  way["building:material"="metal"];
+  way["building:material"="metal_plates"];
+  way["material"="steel"];
+  way["material"="metal"];
+  way["landuse"="commercial"];
+)->.steel;
   
-  // Steel
-  (
-    way["building:material"="aluminium"];
-    way["building:material"="steel"];
-    way["building:material"="metal"];
-    way["building:material"="metal_plates"];
-    way["material"="steel"];
-    way["material"="metal"];
-    way["landuse"="commercial"];
-  )->.steel;
+// Fighting
+(
+  way["amenity"="school"];
+  way["leisure"="track"];
+  // Very often Mankey
+  way["leisure"="dog_park"];
+)->.fighting;
   
-  // Fighting
-  (
-    way["amenity"="school"];
-    way["leisure"="track"];
-    // Very often Mankey
-    way["leisure"="dog_park"];
-  )->.fighting;
+// Ground
+(
+  way["landuse"="allotments"];
+  way["surface"="unpaved"]["area"="yes"];
+  way["highway"="pedestrian"]["area"="yes"];
+)->.ground;
   
-  // Ground
-  (
-    way["landuse"="allotments"];
-    way["surface"="unpaved"]["area"="yes"];
-    way["highway"="pedestrian"]["area"="yes"];
-  )->.ground;
+// Rock
+(
+  way["natural"="bare_rock"];
+  way["natural"="cliff"];
+  way["landuse"="quarry"]; // TODO
+  rel["landuse"="quarry"];
+)->.rock;
   
-  // Rock
-  (
-    way["natural"="bare_rock"];
-    way["natural"="cliff"];
-    way["landuse"="quarry"]; // TODO
-    rel["landuse"="quarry"];
-  )->.rock;
+// Fairy
+(
+  way["leisure"="pitch"];
+  way["amenity"="kindergarten"];
+)->.fairy;
+  
+// Fire
+(
+  way["amenity"="fire_station"];
+  way["amenity"="crematorium"];
+)->.fire;
+  
+// Psychic
+(
+  way["leisure"="playground"];
+)->.psychic;
+  
+// Dragon
+// Dratini
+(
+  way["leisure"="golf_course"];
+  way["natural"="beach"];
+  way["natural"="wetland"]; // Dratini
+)->.dragon;
+  
+// Ghost
+(
+  way["amenity"="parking"];
+  // way["lit"="no"];
+)->.ghost;
+  
+// Grass
+// Bellsprout, Bulbasaur
+(
+  way["landuse"="grass"];
+  way["leisure"="nature_reserve"];
+)->.grass;
+  
+// Water
+// Magikarp, Staryu, Squirtle
+(
+  way["landuse"="reservoir"];
+  way["natural"="water"];
+  way["waterway"];
+)->.water;
+  
+// Poison
+// Ekans
+(
+  way["natural"="scrub"];
+)->.poison;
+  
+// Electric
+(
+  way["landuse"="industrial"];
+  way["building"="industrial"];
+)->.electric;
+  
+// Bug
+// Weedle
+(
+  way["landuse"="forest"];
+)->.bug;
+  
+// Grass, Bug, Poison, Flying
+(
+  way["natural"="wood"];
+)->.multiple;
 
-  // Fairy
-  (
-    way["leisure"="pitch"];
-    way["amenity"="kindergarten"];
-  )->.fairy;
+// Normal
+// Eevee, Meowth, Doduo
+(
+  // way["leisure"="park"]; // This is too dominant on most maps. Most Pokemon spawn in parks and overpass turbo doesn't provide proper layering.
+)->.normal;
   
-  // Fire
-  (
-    way["amenity"="fire_station"];
-    way["amenity"="crematorium"];
-  )->.fire;
-  
-  // Psychic
-  (
-    way["leisure"="playground"];
-  )->.psychic;
-  
-  // Dragon
-  // Dratini
-  (
-    way["leisure"="golf_course"];
-    way["natural"="beach"];
-    way["natural"="wetland"]; way["waterway"="riverbank"]; // Dratini
-  )->.dragon;
-  
-  // Ghost
-  (
-    way["amenity"="parking"];
-    // way["lit"="no"];
-  )->.ghost;
+// Unkown type, maybe bug?
+(
+  way["landuse"="farm"];
+)->.unknown;
 
-  // Grass
-  // Bellsprout, Bulbasaur
-  (
-    way["landuse"="grass"];
-    way["leisure"="nature_reserve"];
-  )->.grass;
-
-  // Water
-  // Magikarp, Staryu, Squirtle
-  (
-    way["landuse"="reservoir"];
-    way["natural"="water"];
-    way["waterway"];
-  )->.water;
-  
-  // Electric
-  (
-    way["landuse"="industrial"];
-    way["building"="industrial"];
-  )->.electric;
-  
-  // Poison
-  // Ekans
-  (
-    way["natural"="scrub"];
-  )->.poison;
-  
-  // Bug
-  // Weedle
-  (
-    way["landuse"="forest"];
-  )->.bug;
-  
-  // Normal
-  // Eevee, Meowth, Doduo
-  (
-    way["leisure"="park"];
-  )->.normal;
-  
-  // Grass, Bug, Poison, Flying
-  (
-    way["natural"="wood"];
-  )->.multiple;
-  
-  // Unkown type, maybe bug?
-  (
-    way["landuse"="farm"];
-  )->.unknown;
-  
-)->.spawn_areas;
+// Result set
+(
+  way.rare;
+  way.flying;
+  way.steel;
+  way.fighting;
+  way.ground;
+  way.rock;
+  way.fairy;
+  way.fire;
+  way.psychic;
+  way.dragon;
+  way.grass;
+  way.bug;
+  way.electric;
+  way.ghost;
+);
 
 // Pokemon usually spawn on these paths.
 /*
@@ -155,10 +168,22 @@
 // (way({{bbox}}); - way.spawn_areas;)->.non_spawn_areas;
 // (way.spawn_areas; - way["access"="private"]);
 
-);
-
 // Remove the "center" text below to hide the labels.
 out body center;
+
+>;
+
+out skel;
+
+(
+  way.water;
+  way.poison;
+  way.multiple;
+  way.normal;
+  way.unknown;
+);
+
+out body;
 
 >;
 
@@ -173,6 +198,12 @@ area
   fill-opacity: 0.7;
 }
 
+node
+{
+  icon-width: 40;
+  icon-height: 10;
+}
+
 /* Areas */
 /* Unknown */
 way { color: black; fill-color: black; }
@@ -184,7 +215,7 @@ way[landuse=industrial], way[building=industrial] { set .electric; }
 way[landuse=reservoir], way[waterway], way[natural=water] { set .water; }
 way[landuse=grass], way[leisure=nature_reserve] { set .grass; }
 way[amenity=parking] { set .ghost; }
-way[leisure=golf_course], way[natural=beach], way[natural=wetland], way[waterway=riverbank] { set .dragon; }
+way[leisure=golf_course], way[natural=beach], way[natural=wetland] { set .dragon; }
 way[leisure=playground] { set .psychic; }
 way[landuse=allotments], way[highway=pedestrian] { set .ground; }
 way[natural=bare_rock], way[natural=cliff], way[landuse=quarry] { set .rock; }
@@ -214,31 +245,31 @@ node|z18- { set .zoom; }
 way.paths { color: #FF0000; fill-color: #FF0000; }
 
 /* Multiple */
-way.multiple { color: #FFFFFF; fill-color: #FFFFFF; }
+way.multiple { color: #FFFFFF; fill-color: #FFFFFF; fill-opacity: 0.2; }
 /* Normal */
-way.normal { color: #B2966E; fill-color: #B2966E; }
+way.normal { color: #B2966E; fill-color: #B2966E; fill-opacity: 0.2; }
 way.normal.zoom { icon-image: url('https://lh3.googleusercontent.com/-AuweIssPt78/Vzas90XB9dI/AAAAAAAAGmw/7sVGHyfL1SgjpLuobPWObQAHrjOrri0QQCCo/s80/Normal.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Bug */
-way.bug { color: #97AB3C; fill-color: #97AB3C; }
+way.bug { color: #97AB3C; fill-color: #97AB3C; fill-opacity: 0.2; }
 way.bug.zoom { icon-image: url('https://lh3.googleusercontent.com/-76Bwp82ceRY/Vzas9JKM4AI/AAAAAAAAGmI/sjtRLW7p0UEQoT8lF59M_pup-Yohf1x5gCCo/s80/Bug.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Poison */
-way.poison { color: #B365A1; fill-color: #B365A1; }
+way.poison { color: #B365A1; fill-color: #B365A1; fill-opacity: 0.4; }
 way.poison.zoom { icon-image: url('https://lh3.googleusercontent.com/-KIStDNhynLQ/VzaGvQxemGI/AAAAAAAAGl4/NZA8hphTD_Q6FHmCGs9XYJhCrWq9En-8wCCo/s80/button%2B%25285%2529.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Electric */
-way.electric { color: #FFC910; fill-color: #FFC910;  }
+way.electric { color: #FFC910; fill-color: #FFC910; fill-opacity: 0.2; }
 way.electric.zoom { icon-image: url('https://lh3.googleusercontent.com/-p0KDtGpmIdU/Vzas9YCCRgI/AAAAAAAAGmQ/CsqpAGmSoR02IGit1RUy2z0xlasH_dAUgCCo/s80/Electric.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Water */
-way.water { color: #4EC9D9; fill-color: #4EC9D9; }
-way.water.zoom { icon-image: url('https://lh3.googleusercontent.com/-9bBYi1WiYko/Vzas-KX9mFI/AAAAAAAAGnA/n1IB0JTAqxUACu4w9Yts48qdal6sn0xEgCCo/s80/Water.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+way.water, way.lapras { color: #4EC9D9; fill-color: #4EC9D9; fill-opacity: 0.2; }
+way.water.zoom, way.lapras.zoom { icon-image: url('https://lh3.googleusercontent.com/-9bBYi1WiYko/Vzas-KX9mFI/AAAAAAAAGnA/n1IB0JTAqxUACu4w9Yts48qdal6sn0xEgCCo/s80/Water.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Grass */
-way.grass { color: #79C85F; fill-color: #79C85F; }
+way.grass { color: #79C85F; fill-color: #79C85F; fill-opacity: 0.2; }
 way.grass.zoom { icon-image: url('https://lh3.googleusercontent.com/-IGKWqJcoyYs/VzaFv1HotqI/AAAAAAAAGlw/hRKh9jVhqP0ePnkSJ4IlcYM-wpRYr6dlgCCo/s80/button%2B%25284%2529.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Ghost */
-way.ghost { color: #836E95; fill-color: #836E95; }
+way.ghost { color: #836E95; fill-color: #836E95; fill-opacity: 0.5; }
 node.zoom.ghost { icon-image: url('https://lh3.googleusercontent.com/-M0Yc5NRoG3g/Vzas9jG0zeI/AAAAAAAAGmk/ZizkVzJnXPohb3rdd3FRYHYMQhFvYX37wCCo/s80/Ghost.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Dragon */
-way.dragon, way.lapras { color: #5A64AB; fill-color: #5A64AB; }
-way.dragon.zoom, way.lapras.zoom { icon-image: url('https://lh3.googleusercontent.com/-y3PlD3Lz844/Vzas9Ng8f6I/AAAAAAAAGmE/1JDv4ojJUfwFb6tYzb4tEzE9xF1FPpcDQCCo/s80/Dragon.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
+way.dragon { color: #5A64AB; fill-color: #5A64AB; }
+way.dragon.zoom { icon-image: url('https://lh3.googleusercontent.com/-y3PlD3Lz844/Vzas9Ng8f6I/AAAAAAAAGmE/1JDv4ojJUfwFb6tYzb4tEzE9xF1FPpcDQCCo/s80/Dragon.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
 /* Psychic */
 way.psychic { color: #FF648C; fill-color: #FF648C; }
 way.psychic.zoom { icon-image: url('https://lh3.googleusercontent.com/-V2x5yg3eob4/Vzas9xbGh-I/AAAAAAAAGm4/miVyL-yYcpk7biRwS_fvKQif258xy1tLwCCo/s80/Psychic.png?refresh=900&resize_h=NaN&resize_w=NaN'); }
